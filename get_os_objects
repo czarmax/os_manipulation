@@ -1,0 +1,21 @@
+def list_directory(path):
+    files = []
+    # r=root, d=directories, f = files
+    for r, d, f in os.walk(path):
+        for file in f:
+            if '.xls' in file:
+                files.append(os.path.join(r, file))
+
+    for f in files:
+        print(f)
+
+def get_last_file_modified(path):
+    # r=root, d=directories, f = files
+    t = time.ctime(max(
+        os.stat(root).st_mtime for root, d, f in os.walk(path)
+    ))
+
+def get_download_dir():
+    with OpenKey(HKEY_CURRENT_USER, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders') as key:
+        downloads_dir = QueryValueEx(key, '{374DE290-123F-4565-9164-39C4925E467B}')[0]
+    return downloads_dir
